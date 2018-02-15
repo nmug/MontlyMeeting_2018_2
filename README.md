@@ -23,3 +23,4 @@ Agenda:
    * Discuss with DBA how a Dev, QA, and Production environment might work with Code First stuff.
  * Learn how to set seeding of initial data
  * Learn how to manually update the up and down procedures for database updates
+ * Discuss some gotchas for Code First like changing types on the key, etc.
