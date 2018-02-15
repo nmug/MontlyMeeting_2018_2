@@ -20,5 +20,6 @@ Agenda:
  * Use Data Annotations with models
  * Use Fluent API with Entity framework to specify relations, navigation properties, etc.
  * Learn how to process model changes to the database
+   * Discuss with DBA how a Dev, QA, and Production environment might work with Code First stuff.
  * Learn how to set seeding of initial data
  * Learn how to manually update the up and down procedures for database updates
