@@ -14,9 +14,9 @@ Agenda:
 * Review Code First using Entity Framework Core
 * Review Code First using Entity Framework 6+
  * Look at how convention can work great
-  * Listen to DBA on some issues with navigation properties (FK column naming), etc.
+   * Listen to DBA on some issues with navigation properties (FK column naming), etc.
  * Learn how to override convention if it's not to the standard that you want.
-  * Receive feedback from DBA on best practice for naming, etc. and show how to override convention.
+   * Receive feedback from DBA on best practice for naming, etc. and show how to override convention.
  * Use Data Annotations with models
  * Use Fluent API with Entity framework to specify relations, navigation properties, etc.
  * Learn how to process model changes to the database
