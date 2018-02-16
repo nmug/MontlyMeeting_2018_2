@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [NMUGMeetings]    Script Date: 2/15/2018 3:27:32 PM ******/
+/****** Object:  Database [NMUGMeetings]    Script Date: 2/16/2018 10:53:53 AM ******/
 CREATE DATABASE [NMUGMeetings]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -99,10 +99,10 @@ ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET QUERY_OPTIMIZER_HOTFIXES =
 GO
 USE [NMUGMeetings]
 GO
-/****** Object:  Schema [admin]    Script Date: 2/15/2018 3:27:32 PM ******/
+/****** Object:  Schema [admin]    Script Date: 2/16/2018 10:53:53 AM ******/
 CREATE SCHEMA [admin]
 GO
-/****** Object:  Table [admin].[Organizers]    Script Date: 2/15/2018 3:27:32 PM ******/
+/****** Object:  Table [admin].[Organizers]    Script Date: 2/16/2018 10:53:53 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -116,7 +116,7 @@ CREATE TABLE [admin].[Organizers](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[MeetingMembers]    Script Date: 2/15/2018 3:27:32 PM ******/
+/****** Object:  Table [dbo].[MeetingMembers]    Script Date: 2/16/2018 10:53:54 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -133,22 +133,22 @@ CREATE TABLE [dbo].[MeetingMembers](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Meetings]    Script Date: 2/15/2018 3:27:32 PM ******/
+/****** Object:  Table [dbo].[Meetings]    Script Date: 2/16/2018 10:53:54 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Meetings](
 	[MeetingId] [int] IDENTITY(1,1) NOT NULL,
-	[Name] [varbinary](50) NOT NULL,
-	[Description] [nchar](10) NULL,
+	[Name] [varchar](50) NOT NULL,
+	[Description] [nvarchar](50) NULL,
  CONSTRAINT [PK_Meetings] PRIMARY KEY CLUSTERED 
 (
 	[MeetingId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Members]    Script Date: 2/15/2018 3:27:33 PM ******/
+/****** Object:  Table [dbo].[Members]    Script Date: 2/16/2018 10:53:54 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -156,7 +156,7 @@ GO
 CREATE TABLE [dbo].[Members](
 	[MemberId] [int] IDENTITY(1,1) NOT NULL,
 	[FirstName] [varchar](50) NOT NULL,
-	[LastNAme] [varchar](50) NOT NULL,
+	[LastName] [varchar](50) NOT NULL,
 	[EmailAddress] [varchar](50) NOT NULL,
  CONSTRAINT [PK_Members] PRIMARY KEY CLUSTERED 
 (
@@ -179,7 +179,116 @@ REFERENCES [dbo].[Members] ([MemberId])
 GO
 ALTER TABLE [dbo].[MeetingMembers] CHECK CONSTRAINT [FK_MeetingMembers_Members]
 GO
+/****** Object:  StoredProcedure [dbo].[GetMemberMeetings]    Script Date: 2/16/2018 10:53:54 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Tyler
+-- Create date: 2/15/2018
+-- Description:	Get Meetings tied to Member 
+-- Attendance Status for those meetings
+-- =============================================
+CREATE PROCEDURE [dbo].[GetMemberMeetings] 
+AS
+BEGIN
+
+	--SELECT 
+	--	m.Name,
+	--	m.Description,
+	--	mem.FirstName,
+	--	mem.LastNAme,
+	--	mem.EmailAddress
+	--INTO #tempTable
+	--FROM
+	--	Meetings m
+	--		INNER JOIN 
+	--	MeetingMembers mm on 
+	--		m.MeetingId = mm.MeetingId
+	--		INNER JOIN
+	--	Members mem on 
+	--		mm.MemberId = mem.MemberId
+	--ORDER BY
+	--	m.Name,
+	--	m.Description,
+	--	mem.FirstName,
+	--	mem.LastNAme
+
+	--SELECT
+	--	t.Name,
+	--	t.Description,
+	--	t.FirstName,
+	--	t.LastNAme,
+	--	t.EmailAddress
+	--FROM
+	--	#tempTable t
+
+
+	SELECT 
+		m.Name,
+		m.Description,
+		mem.FirstName,
+		mem.LastNAme,
+		mem.EmailAddress
+	FROM
+		Meetings m
+			INNER JOIN 
+		MeetingMembers mm on 
+			m.MeetingId = mm.MeetingId
+			INNER JOIN
+		Members mem on 
+			mm.MemberId = mem.MemberId
+	ORDER BY
+		m.Name,
+		m.Description,
+		mem.FirstName,
+		mem.LastNAme
+END
+GO
 USE [master]
 GO
 ALTER DATABASE [NMUGMeetings] SET  READ_WRITE 
 GO
+
+
+
+
+USE NMUGMeetings
+
+delete from MeetingMembers
+delete from Meetings
+delete from Members
+
+
+insert into Meetings values ('Dec 2017 Meeting', 'December 2018 Meeting')
+insert into Meetings values ('Jan 2018 Meeting', 'January 2018 Meeting')
+insert into Meetings values ('Feb 2018 Meeting', 'February 2018 Meeting')
+
+insert into Members values ('FirstName1', 'LastName1', 'emailAddress1@email.com')
+insert into Members values ('FirstName2', 'LastName2', 'emailAddress2@email.com')
+insert into Members values ('FirstName3', 'LastName3', 'emailAddress3@email.com')
+
+insert into MeetingMembers values(
+	(select MeetingId from Meetings m where Name = 'Dec 2017 Meeting'), 
+	(select memberid from Members where EmailAddress = 'emailAddress1@email.com'), 
+	1, 
+	GETDATE())
+
+insert into MeetingMembers values(
+	(select MeetingId from Meetings m where Name = 'Dec 2017 Meeting'), 
+	(select memberid from Members where EmailAddress = 'emailAddress2@email.com'), 
+	1, 
+	GETDATE())
+
+insert into MeetingMembers values(
+	(select MeetingId from Meetings m where Name = 'Jan 2018 Meeting'), 
+	(select memberid from Members where EmailAddress = 'emailAddress1@email.com'), 
+	1, 
+	GETDATE())
+
+insert into MeetingMembers values(
+	(select MeetingId from Meetings m where Name = 'Jan 2018 Meeting'), 
+	(select memberid from Members where EmailAddress = 'emailAddress2@email.com'), 
+	1, 
+	GETDATE())

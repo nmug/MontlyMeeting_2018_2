@@ -1,0 +1,50 @@
+﻿@model EF6CodeFirst.DAL.MeetingMember
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MeetingMember</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Meeting.MeetingId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Meeting.MeetingId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Member.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Member.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAttending)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsAttending)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreationDateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreationDateTime)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

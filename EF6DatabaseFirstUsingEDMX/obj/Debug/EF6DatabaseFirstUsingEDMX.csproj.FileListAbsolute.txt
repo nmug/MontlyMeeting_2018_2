@@ -3,6 +3,8 @@ C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\bin\EF6DatabaseFirstUsingE
 C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\bin\EF6DatabaseFirstUsingEDMX.dll
 C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\bin\EF6DatabaseFirstUsingEDMX.pdb
 C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\bin\Antlr3.Runtime.dll
+C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\bin\EntityFramework.dll
+C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\bin\EntityFramework.SqlServer.dll
 C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\bin\Microsoft.AI.Agent.Intercept.dll
 C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\bin\Microsoft.AI.DependencyCollector.dll
 C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\bin\Microsoft.AI.PerfCounterCollector.dll
@@ -21,6 +23,8 @@ C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\bin\System.Web.WebPages.De
 C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\bin\System.Web.WebPages.dll
 C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\bin\System.Web.WebPages.Razor.dll
 C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\bin\WebGrease.dll
+C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\bin\EntityFramework.xml
+C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\bin\EntityFramework.SqlServer.xml
 C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\bin\System.Web.Helpers.xml
 C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\bin\System.Web.Mvc.xml
@@ -36,7 +40,6 @@ C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\bin\Microsoft.AI.Dependenc
 C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\bin\Microsoft.AI.WindowsServer.xml
 C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\bin\Microsoft.AI.Web.xml
-C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\obj\Debug\EF6DatabaseFirstUsingEDMX.csprojResolveAssemblyReference.cache
 C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\obj\Debug\EF6DatabaseFirstUsingEDMX.csproj.CoreCompileInputs.cache
 C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\obj\Debug\EF6DatabaseFirstUsingEDMX.dll
 C:\Dev\MontlyMeeting_2018_2\EF6DatabaseFirstUsingEDMX\obj\Debug\EF6DatabaseFirstUsingEDMX.pdb

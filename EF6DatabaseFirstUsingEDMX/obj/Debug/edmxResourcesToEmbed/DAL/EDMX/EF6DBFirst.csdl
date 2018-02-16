@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="NMUGMeetingsEntities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Organizer">
+    <Key>
+      <PropertyRef Name="OrganizerId" />
+    </Key>
+    <Property Name="OrganizerId" Type="Int32" Nullable="false" />
+    <Property Name="MemberId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Member" Relationship="Self.FK_Organizers_Members" FromRole="Organizers" ToRole="Members" />
+  </EntityType>
+  <EntityType Name="MeetingMember">
+    <Key>
+      <PropertyRef Name="MeetingId" />
+      <PropertyRef Name="MemberId" />
+    </Key>
+    <Property Name="MeetingId" Type="Int32" Nullable="false" />
+    <Property Name="MemberId" Type="Int32" Nullable="false" />
+    <Property Name="IsAttending" Type="Boolean" Nullable="false" />
+    <Property Name="LastUpdated" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Meeting" Relationship="Self.FK_MeetingMembers_Meetings" FromRole="MeetingMembers" ToRole="Meetings" />
+    <NavigationProperty Name="Member" Relationship="Self.FK_MeetingMembers_Members" FromRole="MeetingMembers" ToRole="Members" />
+  </EntityType>
+  <EntityType Name="Meeting">
+    <Key>
+      <PropertyRef Name="MeetingId" />
+    </Key>
+    <Property Name="MeetingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="Binary" MaxLength="50" FixedLength="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="MeetingMembers" Relationship="Self.FK_MeetingMembers_Meetings" FromRole="Meetings" ToRole="MeetingMembers" />
+  </EntityType>
+  <EntityType Name="Member">
+    <Key>
+      <PropertyRef Name="MemberId" />
+    </Key>
+    <Property Name="MemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Organizers" Relationship="Self.FK_Organizers_Members" FromRole="Members" ToRole="Organizers" />
+    <NavigationProperty Name="MeetingMembers" Relationship="Self.FK_MeetingMembers_Members" FromRole="Members" ToRole="MeetingMembers" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Organizers_Members">
+    <End Role="Members" Type="Self.Member" Multiplicity="1" />
+    <End Role="Organizers" Type="Self.Organizer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Members">
+        <PropertyRef Name="MemberId" />
+      </Principal>
+      <Dependent Role="Organizers">
+        <PropertyRef Name="MemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MeetingMembers_Meetings">
+    <End Role="Meetings" Type="Self.Meeting" Multiplicity="1" />
+    <End Role="MeetingMembers" Type="Self.MeetingMember" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Meetings">
+        <PropertyRef Name="MeetingId" />
+      </Principal>
+      <Dependent Role="MeetingMembers">
+        <PropertyRef Name="MeetingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MeetingMembers_Members">
+    <End Role="Members" Type="Self.Member" Multiplicity="1" />
+    <End Role="MeetingMembers" Type="Self.MeetingMember" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Members">
+        <PropertyRef Name="MemberId" />
+      </Principal>
+      <Dependent Role="MeetingMembers">
+        <PropertyRef Name="MemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="NMUGMeetingsEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Organizers" EntityType="Self.Organizer" />
+    <EntitySet Name="MeetingMembers" EntityType="Self.MeetingMember" />
+    <EntitySet Name="Meetings" EntityType="Self.Meeting" />
+    <EntitySet Name="Members" EntityType="Self.Member" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_Organizers_Members" Association="Self.FK_Organizers_Members">
+      <End Role="Members" EntitySet="Members" />
+      <End Role="Organizers" EntitySet="Organizers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MeetingMembers_Meetings" Association="Self.FK_MeetingMembers_Meetings">
+      <End Role="Meetings" EntitySet="Meetings" />
+      <End Role="MeetingMembers" EntitySet="MeetingMembers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MeetingMembers_Members" Association="Self.FK_MeetingMembers_Members">
+      <End Role="Members" EntitySet="Members" />
+      <End Role="MeetingMembers" EntitySet="MeetingMembers" />
+    </AssociationSet>
+    <FunctionImport Name="GetMemberMeetings" ReturnType="Collection(NMUGMeetingsEntities.GetMemberMeetings_Result)" />
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(NMUGMeetingsEntities.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(NMUGMeetingsEntities.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="GetMemberMeetings_Result">
+    <Property Type="Binary" Name="Name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Description" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="LastNAme" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="EmailAddress" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>
